@@ -1,0 +1,15 @@
+#!/bin/sh
+
+if [ -z "${1}" ]; then
+	cat |/bin/nc -w1 localhost 3505
+else
+	if [ -f "${1}" ]; then
+		if [ -r "${1}" ]; then
+			/bin/nc -w1 localhost 3505 < "${1}"
+		else
+			echo "Permission denied opening $1."
+		fi
+	else
+		echo "Error opening $1."
+	fi
+fi
