@@ -5,6 +5,14 @@ This is an attempt to give an emulated mainframe some meaningful work by accumul
 ## License.
 This document is part of the *spamassassin-report-cobol* project, to be found on [GitHub](https://github.com/PoC-dev/spamassassin-report-cobol). Its content is subject to the [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) license, also known as *Attribution-ShareAlike 4.0 International*. The project itself is subject to the GNU Public License version 2.
 
+## News.
+Because of a shift in interests, I want to get rid MVS. Hence I added some files and scripts to aid in exporting the accumulated data:
+- `prtdta.jcl`: Send Inpile to printer, so the data is available from the host side.
+- `convert-inpile.pl`: Perl script to convert inpile records to CSV for inserting into a database table; note: The timestamp format is for DB2 i.
+- `statspf.dds` AS/400 database source description, for containing records converted by the script mentioned prior.
+
+There is currently no readymade port of the statistics application.
+
 ## Environment preparation.
 Required parts:
 - Hercules as part of a Turnkey environment

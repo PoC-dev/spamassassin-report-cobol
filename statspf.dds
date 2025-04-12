@@ -1,0 +1,13 @@
+     A* Globals ----------------------------------------------------------------
+     A*
+     A* Record Format Name -----------------------------------------------------
+     A          R STATSTBL
+     A* Data fields
+     A            STAMP           Z
+     A            SIZE           8P 0
+     A            SCORE          4P 1
+     A            SCANTIME       4P 1
+     A* Index field(s)
+     A          K STAMP
+     A* For vim ----------------------------------------------------------------
+     A* vim: syntax=dds colorcolumn=81 autoindent noignorecase
