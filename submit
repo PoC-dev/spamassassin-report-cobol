@@ -1,11 +1,16 @@
 #!/bin/sh
 
+if [  -z "${CARD_READER_PORT}" ]; then
+	echo "Please set envvar CARD_READER_PORT to the desired card reader's TCP port number."
+	exit 1
+fi
+
 if [ -z "${1}" ]; then
-	cat |/bin/nc -w1 localhost 3505
+	cat |/bin/nc -w1 localhost ${CARD_READER_PORT}
 else
 	if [ -f "${1}" ]; then
 		if [ -r "${1}" ]; then
-			/bin/nc -w1 localhost 3505 < "${1}"
+			/bin/nc -w1 localhost ${CARD_READER_PORT} < "${1}"
 		else
 			echo "Permission denied opening $1."
 		fi
