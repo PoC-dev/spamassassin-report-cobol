@@ -8,10 +8,13 @@ This document is part of the *spamassassin-report-cobol* project, to be found on
 ## News.
 Because of a shift in interests, I want to get rid MVS. Hence I added some files and scripts to aid in exporting the accumulated data:
 - `prtdta.jcl`: Send Inpile to printer, so the data is available from the host side.
-- `convert-inpile.pl`: Perl script to convert inpile records to CSV for inserting into a database table; note: The timestamp format is for DB2 i.
-- `statspf.dds` AS/400 database source description, for containing records converted by the script mentioned prior.
+- `convert-inpile.pl`: Perl script to convert inpile records to CSV for inserting into a database table; **note:** The timestamp format is for DB2 i.
+- `statspf.dds`: AS/400 database source description, for containing records converted by the script mentioned prior.
+- `sa-parse-syslog-as400.pl`: While `sa-parse-syslog.pl` (mentioned below) generates JCL to copy data into a MVS dataset, this one uses ODBC to insert records via ODBC to a DB2 i instance.
 
 There is currently no readymade port of the statistics application.
+
+See below for further explanation of content.
 
 ## Environment preparation.
 Required parts:
