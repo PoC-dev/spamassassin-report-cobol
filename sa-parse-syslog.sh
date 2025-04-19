@@ -12,3 +12,5 @@ cp -a ${HOME}/.mail.log-offset ${HOME}/.mail.log-offset~
 	echo "Error occurred, backing out offset-file."
 	cp -a ${HOME}/.mail.log-offset~ ${HOME}/.mail.log-offset
 }
+
+exit 0
