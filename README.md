@@ -84,9 +84,14 @@ Finally you can run *sa-parse-syslog.sh* from cron, e. g. each hour.
 - This documentation possibly omits many possible pitfalls and how to recover from them.
 - The described procedures have been derived from a working TK4- system and underwent no subsequent testing.
 - The COBOL code is very crude, because the turnkey systems includes an ancient COBOL compiler from the late 1960's. There is no newer, free compiler available. I was not able to grok how to properly feed it signed (negative) numbers as text, so it understands it's still a number.
+- Volker Bandke reported that instead of manually dissecting the optional decimal-sign, and pre- and post decimal point data, I should use:
+```
+01 INPUT-RECORD.
+    02 MY-NUMBER PIC S9(4) USEAGE DISPLAY SIGN IS LEADING SEPARATE.
+```
 
-Feedback is well appreciated for expanding this documentation.
+Further feedback is well appreciated for expanding this documentation.
 
 ----
 
-2024-08-12 poc@pocnet.net
+2025-05-21 poc@pocnet.net
