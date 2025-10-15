@@ -1,4 +1,4 @@
-This is an attempt to give an emulated mainframe some meaningful work by accumulating statistical data from syslog output of a mail server's Spamassassin log entries, and run a statistics program over the data to gather some insight.
+This is an attempt to give an emulated mainframe some meaningful work by accumulating statistical data from syslog output of a Linux based mail server's Spamassassin log entries, and run a statistics program over the data to gather some insight.
 
 **Note:** This project contains hard coded username *HERC04* and the accompanying password *PASS4U* in many places. This is intentionally and explained later.
 
@@ -17,6 +17,8 @@ There is currently no readymade port of the statistics application.
 See below for further explanation of content.
 
 ## Environment preparation.
+This project is split in two. Things which are meant to run on the mail server, to select, prepare, and upload data to the mainframe environment (see below), and things which actually go to said mainframe environment.
+
 Required parts:
 - Hercules as part of a Turnkey environment
 - Logtail (part of the logcheck package)
@@ -55,7 +57,7 @@ To tell the operating system what to do, [JCL](https://en.wikipedia.org/wiki/Job
   - partitioned data sets (PDS) can be understood as an archive of files (called members) with a common record length, and were a countermeasure against wasted space due to e. g. many small text files being allocated a full disk block but rarely filling said block. Accessing data in a PDS is more "expensive" in terms of work for the computer than in a normal data set.
 - Data sets to be used aren't opened "dynamically" in application programs, but they are defined in JCL and the [JCL "interpreter"](https://en.wikipedia.org/wiki/Job_Entry_Subsystem_2/3) passes the opened file descriptors to the application program being launched. Application programs merely have a "fake" name defined which is mapped to a real data set with JCL `dd` statements.
 
-Output of program runs is traditionally directed to printers. The turnkey environment defines two printers whose output is directed to text files in the *prt* subdirectory of the turnkey directory. The printer output for most jobs ends up in *prt/prt00e.txt*. A good way on Linux to observe what's happening is to use a separate terminal window with 132 chars width, and run `tail -f prt/prt00e.txt` in there.
+Output of program runs is traditionally directed to printers. The turnkey environment defines two printers whose output is directed to text files in the *prt* subdirectory of the turnkey directory on the host side. The printer output for most jobs ends up in *prt/prt00e.txt*. A good way on Linux to observe what's happening is to use a separate terminal window with 132 chars width, and run `tail -f prt/prt00e.txt` in there.
 
 ## MVS setup.
 That being said, we're about to create three data sets:
@@ -82,9 +84,9 @@ Finally you can run *sa-parse-syslog.sh* from cron, e. g. each hour.
 
 ## Bugs.
 - This documentation possibly omits many possible pitfalls and how to recover from them.
-- The described procedures have been derived from a working TK4- system and underwent no subsequent testing.
-- The COBOL code is very crude, because the turnkey systems includes an ancient COBOL compiler from the late 1960's. There is no newer, free compiler available. I was not able to grok how to properly feed it signed (negative) numbers as text, so it understands it's still a number.
-- Volker Bandke reported that instead of manually dissecting the optional decimal-sign, and pre- and post decimal point data, I should use:
+- The described procedures have been derived from a working TK4- system and underwent no subsequent testing on other Turnkey systems.
+- The COBOL code is very crude, because the turnkey systems include an ancient COBOL compiler from the late 1960's. There is no newer, free compiler available. I was not able to grok how to properly feed it signed (negative) numbers as text, so it understands it's still a number.
+   - Volker Bandke reported that instead of manually dissecting the optional decimal-sign, and pre- and post decimal point data, I should use:
 ```
 01 INPUT-RECORD.
     02 MY-NUMBER PIC S9(4) USEAGE DISPLAY SIGN IS LEADING SEPARATE.
@@ -94,4 +96,4 @@ Further feedback is well appreciated for expanding this documentation.
 
 ----
 
-2025-05-21 poc@pocnet.net
+2025-10-15 poc@pocnet.net
